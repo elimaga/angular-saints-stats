@@ -2,6 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { SaintsLogoComponent } from './saints-logo/saints-logo.component';
 import { InstagramLogoComponent } from './instagram-logo/instagram-logo.component';
+import { KeyTableComponent } from './key-table/key-table.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -9,7 +10,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         SaintsLogoComponent,
-        InstagramLogoComponent
+        InstagramLogoComponent,
+        KeyTableComponent
       ],
     }).compileComponents();
   }));
@@ -38,6 +40,13 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('app-saints-logo')).toBeTruthy();
+  });
+
+  it('should render the Key Table', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('app-key-table')).toBeTruthy();
   });
 
   it('should render the Instagram logo', () => {
