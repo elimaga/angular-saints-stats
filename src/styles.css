@@ -1,13 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
-img {
-  height: auto;
+html,body,h1,h2,h3,h4,h5,h6 {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
 }
 
-#saints-logo {
-  border-radius: 10%;
-  max-width: 20%;
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
 }
 
-#instagram-logo {
-  max-width: 10%;
+.selected {
+  background-color: rgb(150, 150, 150);
+  color: black;
+}
+
+.classic {
+  color: #0000EE;
+  font-size: 16px;
 }
