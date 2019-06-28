@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SaintsLogoComponent } from './saints-logo.component';
+import { InstagramLogoComponent } from './instagram-logo.component';
 
-describe('SaintsLogoComponent', () => {
-  let component: SaintsLogoComponent;
-  let fixture: ComponentFixture<SaintsLogoComponent>;
+describe('InstagramLogoComponent', () => {
+  let component: InstagramLogoComponent;
+  let fixture: ComponentFixture<InstagramLogoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SaintsLogoComponent ]
+      declarations: [ InstagramLogoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SaintsLogoComponent);
+    fixture = TestBed.createComponent(InstagramLogoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -26,5 +26,10 @@ describe('SaintsLogoComponent', () => {
   it('should render the image of the logo', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('img')).toBeTruthy();
+  });
+
+  it('should be a link to the instagram page', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('a').title).toEqual("Follow us on Instagram");
   });
 });

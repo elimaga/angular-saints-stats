@@ -1,13 +1,15 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { SaintsLogoComponent } from './saints-logo/saints-logo.component';
+import { InstagramLogoComponent } from './instagram-logo/instagram-logo.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        SaintsLogoComponent
+        SaintsLogoComponent,
+        InstagramLogoComponent
       ],
     }).compileComponents();
   }));
@@ -36,5 +38,12 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('app-saints-logo')).toBeTruthy();
+  });
+
+  it('should render the Instagram logo', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('app-instagram-logo')).toBeTruthy();
   });
 });
