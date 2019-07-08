@@ -1,8 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, getTestBed } from '@angular/core/testing';
 
 import { InMemoryDataService } from './in-memory-data.service';
 
 describe('InMemoryDataService', () => {
+  let injector: TestBed;
+  let service: InMemoryDataService;
+
   const emptyStatsCategories = [];
   const statsCategories = [
     { id: 1, abbreviation: 'G', name: 'Games' },
@@ -35,11 +38,15 @@ describe('InMemoryDataService', () => {
   ];
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [InMemoryDataService],
+    })
+
+    injector = getTestBed();
+    service = injector.get(InMemoryDataService);
   });
 
   it('should be created', () => {
-    const service: InMemoryDataService = TestBed.get(InMemoryDataService);
     expect(service).toBeTruthy();
   });
 
@@ -48,26 +55,21 @@ describe('InMemoryDataService', () => {
       const expectedDatabase = {
         statsCategories
       };
-      const service: InMemoryDataService = TestBed.get(InMemoryDataService);
 
-      const database = service.createDb();
+      const actualDatabase = service.createDb();
 
-      expect(JSON.stringify(database)).toEqual(JSON.stringify(expectedDatabase));
+      expect(JSON.stringify(actualDatabase)).toEqual(JSON.stringify(expectedDatabase));
     });
   });
 
   describe('genId', () => {
     it('should generate the first id when the database is empty', () => {
-      const service: InMemoryDataService = TestBed.get(InMemoryDataService);
-
       const generatedId = service.genId(emptyStatsCategories);
 
       expect(generatedId).toEqual(1);
     });
 
     it('should generate the next highest id when the database is not empty', () => {
-      const service: InMemoryDataService = TestBed.get(InMemoryDataService);
-
       const generatedId = service.genId(statsCategories);
 
       expect(generatedId).toEqual(28);
