@@ -40,7 +40,7 @@ describe('InMemoryDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [InMemoryDataService],
-    })
+    });
 
     injector = getTestBed();
     service = injector.get(InMemoryDataService);
