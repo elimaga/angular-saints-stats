@@ -33,12 +33,12 @@ describe('StatsService', () => {
   describe('getStatsCategories', () => {
     let dataCallback;
     let errorCallback;
-    let observer;
+    let testObserver;
 
     beforeEach(() => {
       dataCallback = sinon.spy();
       errorCallback = sinon.spy();
-      observer = {
+      testObserver = {
         next: dataCallback,
         error: errorCallback
       };
@@ -50,7 +50,7 @@ describe('StatsService', () => {
         {id: 2, abbreviation: 'CF', name: 'Category that is Fake'}
       ];
 
-      service.getStatsCategories().subscribe(observer);
+      service.getStatsCategories().subscribe(testObserver);
 
       const req = httpMock.expectOne('api/statsCategories');
       expect(req.request.method).toBe('GET');
@@ -61,6 +61,20 @@ describe('StatsService', () => {
       expect(statsCategories).toEqual(fakeCategories);
 
       expect(errorCallback.callCount).toEqual(0);
+    });
+
+    it('should handle when there is an error making the http request', () => {
+      service.getStatsCategories().subscribe(testObserver);
+
+      const fakeErrorResponse = { status: 400, statusText: 'Bad Request' };
+      const req = httpMock.expectOne('api/statsCategories');
+      expect(req.request.method).toBe('GET');
+      req.flush(null, fakeErrorResponse);
+
+      expect(dataCallback.callCount).toEqual(0);
+      const error = errorCallback.args[0][0];
+      expect(error.message).toEqual('Http failure response for api/statsCategories: ' +
+        `${fakeErrorResponse.status} ${fakeErrorResponse.statusText}`);
     });
   });
 });
