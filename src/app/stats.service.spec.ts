@@ -66,7 +66,7 @@ describe('StatsService', () => {
     it('should handle when there is an error making the http request', () => {
       service.getStatsCategories().subscribe(testObserver);
 
-      const fakeErrorResponse = { status: 400, statusText: 'Bad Request' };
+      const fakeErrorResponse = {status: 400, statusText: 'Bad Request'};
       const req = httpMock.expectOne('api/statsCategories');
       expect(req.request.method).toBe('GET');
       req.flush(null, fakeErrorResponse);

@@ -1,10 +1,17 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { SaintsLogoComponent } from './saints-logo/saints-logo.component';
-import { InstagramLogoComponent } from './instagram-logo/instagram-logo.component';
-import { KeyTableComponent } from './key-table/key-table.component';
+import {TestBed, async} from '@angular/core/testing';
+import sinon from 'sinon';
+
+import {AppComponent} from './app.component';
+import {SaintsLogoComponent} from './saints-logo/saints-logo.component';
+import {InstagramLogoComponent} from './instagram-logo/instagram-logo.component';
+import {KeyTableComponent} from './key-table/key-table.component';
+import {StatsService} from './stats.service';
 
 describe('AppComponent', () => {
+  class MockStatsService {
+    getStatsCategories = sinon.spy();
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -13,6 +20,9 @@ describe('AppComponent', () => {
         InstagramLogoComponent,
         KeyTableComponent
       ],
+      providers: [
+        {provide: StatsService, useClass: MockStatsService}
+      ]
     }).compileComponents();
   }));
 

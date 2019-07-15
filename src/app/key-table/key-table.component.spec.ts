@@ -1,23 +1,30 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import sinon from 'sinon';
 
 import { KeyTableComponent } from './key-table.component';
+import {StatsService} from '../stats.service';
 
 describe('KeyTableComponent', () => {
   let component: KeyTableComponent;
   let fixture: ComponentFixture<KeyTableComponent>;
 
+  class MockStatsService {
+    getStatsCategories = sinon.spy();
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ KeyTableComponent ]
+      declarations: [ KeyTableComponent ],
+      providers: [
+        { provide: StatsService, useClass: MockStatsService }
+      ]
     })
-    .compileComponents();
-  }));
+      .compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(KeyTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
