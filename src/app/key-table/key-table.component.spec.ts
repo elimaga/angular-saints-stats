@@ -1,5 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 import {KeyTableComponent} from './key-table.component';
 import {StatsService} from '../stats.service';
@@ -16,7 +17,13 @@ describe('KeyTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [KeyTableComponent]
+      declarations: [KeyTableComponent],
+      providers: [
+        StatsService
+      ],
+      imports: [
+        HttpClientTestingModule
+      ]
     })
       .compileComponents();
 
@@ -47,12 +54,25 @@ describe('KeyTableComponent', () => {
     expect(compiled.querySelector('th').textContent).toEqual(component.title);
   });
 
+  describe('ngOnInit', () => {
+    it('should get the stats categories on initialization', () => {
+      component.ngOnInit();
+
+      expect(statsService.getStatsCategories).toHaveBeenCalled();
+    });
+  });
+
   describe('getStatsCategories', () => {
     it('should use the stats service to get the categories', () => {
-
       component.getStatsCategories();
 
       expect(statsService.getStatsCategories).toHaveBeenCalled();
+    });
+
+    it('should set the categories based on what we get from the db', () => {
+      component.getStatsCategories();
+
+      expect(component.statsCategories).toEqual(fakeCategories);
     });
   });
 });

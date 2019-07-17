@@ -1,5 +1,5 @@
 import {TestBed, async} from '@angular/core/testing';
-import sinon from 'sinon';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 import {AppComponent} from './app.component';
 import {SaintsLogoComponent} from './saints-logo/saints-logo.component';
@@ -8,10 +8,6 @@ import {KeyTableComponent} from './key-table/key-table.component';
 import {StatsService} from './stats.service';
 
 describe('AppComponent', () => {
-  class MockStatsService {
-    getStatsCategories = sinon.spy();
-  }
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -21,7 +17,10 @@ describe('AppComponent', () => {
         KeyTableComponent
       ],
       providers: [
-        {provide: StatsService, useClass: MockStatsService}
+        StatsService
+      ],
+      imports: [
+        HttpClientTestingModule
       ]
     }).compileComponents();
   }));
