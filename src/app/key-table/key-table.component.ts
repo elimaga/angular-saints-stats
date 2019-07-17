@@ -11,4 +11,8 @@ export class KeyTableComponent {
   title = 'Key';
 
   constructor(private statsService: StatsService) { }
+
+  getStatsCategories(): void {
+
+  }
 }
