@@ -12,7 +12,11 @@ describe('KeyTableComponent', () => {
 
   const fakeCategories = [
     {id: 1, abbreviation: 'FC', name: 'Fake Category'},
-    {id: 2, abbreviation: 'CF', name: 'Category that is Fake'}
+    {id: 2, abbreviation: 'CF', name: 'Category that is Fake'},
+    {id: 3, abbreviation: 'FY', name: 'Fakey Fake'},
+    {id: 4, abbreviation: 'WFO', name: 'Whoa, another fake one'},
+    {id: 5, abbreviation: 'WTF', name: 'What the Fake'},
+    {id: 6, abbreviation: 'HIF', name: 'Hi, how are ya, I am fake'}
   ];
 
   beforeEach(async(() => {
@@ -68,11 +72,26 @@ describe('KeyTableComponent', () => {
 
       expect(statsService.getStatsCategories).toHaveBeenCalled();
     });
+  });
 
-    it('should set the categories based on what we get from the db', () => {
-      component.getStatsCategories();
+  describe('splitCategoriesIntoGroupsOfThree', () => {
+    it('should split the categories into groups of three', () => {
+      const expectedCategoriesInThrees = [
+        [
+          {id: 1, abbreviation: 'FC', name: 'Fake Category'},
+          {id: 2, abbreviation: 'CF', name: 'Category that is Fake'},
+          {id: 3, abbreviation: 'FY', name: 'Fakey Fake'}
+        ],
+        [
+          {id: 4, abbreviation: 'WFO', name: 'Whoa, another fake one'},
+          {id: 5, abbreviation: 'WTF', name: 'What the Fake'},
+          {id: 6, abbreviation: 'HIF', name: 'Hi, how are ya, I am fake'}
+        ]
+      ];
 
-      expect(component.statsCategories).toEqual(fakeCategories);
+      component.splitCategoriesIntoGroupsOfThree(fakeCategories);
+
+      expect(JSON.stringify(component.statsCategoriesInThrees)).toEqual(JSON.stringify(expectedCategoriesInThrees));
     });
   });
 });

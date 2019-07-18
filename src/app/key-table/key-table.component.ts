@@ -10,16 +10,34 @@ import { StatsCategory } from '../statsCategory';
 })
 export class KeyTableComponent implements OnInit {
   title = 'Key';
-  statsCategories: StatsCategory[];
+  statsCategoriesInThrees;
 
-  constructor(private statsService: StatsService) { }
+  constructor(private statsService: StatsService) {
+    this.statsCategoriesInThrees = [];
+  }
 
   ngOnInit(): void {
     this.getStatsCategories();
   }
 
+  splitCategoriesIntoGroupsOfThree(statsCategories: StatsCategory[]): void {
+    this.statsCategoriesInThrees = [];
+
+    let outerArrayIndex = -1;
+    statsCategories.forEach((category, index) => {
+      console.log('inside the foreach', this.statsCategoriesInThrees);
+
+      if (index % 3 === 0) {
+        this.statsCategoriesInThrees.push([]);
+        outerArrayIndex++;
+      }
+
+      this.statsCategoriesInThrees[outerArrayIndex].push(category);
+    });
+  }
+
   getStatsCategories(): void {
     this.statsService.getStatsCategories()
-      .subscribe(statsCategories => this.statsCategories = statsCategories);
+      .subscribe(this.splitCategoriesIntoGroupsOfThree);
   }
 }
