@@ -50,11 +50,15 @@ describe('KeyTableComponent', () => {
 
   it('should render the key table', () => {
     const compiled = fixture.debugElement.nativeElement;
+
     expect(compiled.querySelector('table')).toBeTruthy();
+    expect(compiled.querySelector('thead')).toBeTruthy();
+    expect(compiled.querySelector('tbody')).toBeTruthy();
   });
 
   it('should have the title in the head of the table', () => {
     const compiled = fixture.debugElement.nativeElement;
+
     expect(compiled.querySelector('th').textContent).toEqual(component.title);
   });
 
