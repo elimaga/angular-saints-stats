@@ -6,4 +6,11 @@
       <th></th>
     </tr>
   </thead>
+  <tbody>
+    <tr *ngFor="let outerArray of statsCategoriesInThrees">
+      <td *ngFor="let category of outerArray">
+        {{ category.abbreviation }} - {{category.name}}
+      </td>
+    </tr>
+  </tbody>
 </table>

@@ -72,9 +72,7 @@ describe('KeyTableComponent', () => {
 
       expect(statsService.getStatsCategories).toHaveBeenCalled();
     });
-  });
 
-  describe('splitCategoriesIntoGroupsOfThree', () => {
     it('should split the categories into groups of three', () => {
       const expectedCategoriesInThrees = [
         [
@@ -89,7 +87,7 @@ describe('KeyTableComponent', () => {
         ]
       ];
 
-      component.splitCategoriesIntoGroupsOfThree(fakeCategories);
+      component.getStatsCategories();
 
       expect(JSON.stringify(component.statsCategoriesInThrees)).toEqual(JSON.stringify(expectedCategoriesInThrees));
     });

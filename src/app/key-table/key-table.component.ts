@@ -10,7 +10,7 @@ import { StatsCategory } from '../statsCategory';
 })
 export class KeyTableComponent implements OnInit {
   title = 'Key';
-  statsCategoriesInThrees;
+  statsCategoriesInThrees: StatsCategory[][];
 
   constructor(private statsService: StatsService) {
     this.statsCategoriesInThrees = [];
@@ -20,13 +20,9 @@ export class KeyTableComponent implements OnInit {
     this.getStatsCategories();
   }
 
-  splitCategoriesIntoGroupsOfThree(statsCategories: StatsCategory[]): void {
-    this.statsCategoriesInThrees = [];
-
+  private splitCategoriesIntoGroupsOfThree(statsCategories: StatsCategory[]): void {
     let outerArrayIndex = -1;
     statsCategories.forEach((category, index) => {
-      console.log('inside the foreach', this.statsCategoriesInThrees);
-
       if (index % 3 === 0) {
         this.statsCategoriesInThrees.push([]);
         outerArrayIndex++;
@@ -38,6 +34,6 @@ export class KeyTableComponent implements OnInit {
 
   getStatsCategories(): void {
     this.statsService.getStatsCategories()
-      .subscribe(this.splitCategoriesIntoGroupsOfThree);
+      .subscribe(categories => this.splitCategoriesIntoGroupsOfThree(categories));
   }
 }
