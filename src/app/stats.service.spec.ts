@@ -132,5 +132,14 @@ describe('StatsService', () => {
 
       expect(errorCallback.callCount).toEqual(0);
     });
+
+    it('should make an http request to get the statistics by the playerId', () => {
+      const playerId = 2;
+
+      service.getStatisticsByPlayer(playerId).subscribe(testObserver);
+
+      const req = httpMock.expectOne(`api/statistics?playerId=${playerId}`);
+      expect(req.request.method).toBe('GET');
+    });
   });
 });
