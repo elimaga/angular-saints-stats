@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {StatsService} from '../stats.service';
 import {StatsCategory} from '../objectClasses/statsCategory';
 import {Player} from '../objectClasses/player';
+import {Statistic} from '../objectClasses/statistic';
 
 @Component({
   selector: 'app-stats-table',
@@ -11,12 +12,14 @@ import {Player} from '../objectClasses/player';
 export class StatsTableComponent implements OnInit {
   statsCategories: StatsCategory[];
   players: Player[];
+  statistics: Statistic[];
 
   constructor(private statsService: StatsService) { }
 
   ngOnInit() {
     this.getStatsCategories();
     this.getPlayers();
+    this.getStatistics();
   }
 
   getStatsCategories(): void {
@@ -27,5 +30,10 @@ export class StatsTableComponent implements OnInit {
   getPlayers(): void {
     this.statsService.getPlayers()
       .subscribe(players => this.players = players);
+  }
+
+  getStatistics(): void {
+    this.statsService.getStatistics()
+      .subscribe(statistics => this.statistics = statistics);
   }
 }

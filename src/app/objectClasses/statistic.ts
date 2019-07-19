@@ -1,5 +1,5 @@
 export class Statistic {
-    olayerId: number;
+    playerId: number;
     categoryId: number;
     value: number;
 }

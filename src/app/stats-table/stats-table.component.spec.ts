@@ -22,6 +22,13 @@ describe('StatsTableComponent', () => {
     {id: 3, name: 'Fakey Fake Player'}
   ];
 
+  const fakeStatistics = [
+    {playerId: 1, categoryId: 1, value: 4},
+    {playerId: 1, categoryId: 3, value: 7},
+    {playerId: 2, categoryId: 1, value: 5},
+    {playerId: 2, categoryId: 3, value: 9}
+  ];
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ StatsTableComponent ],
@@ -42,6 +49,7 @@ describe('StatsTableComponent', () => {
 
     spyOn(statsService, 'getStatsCategories').and.returnValue(of(fakeCategories));
     spyOn(statsService, 'getPlayers').and.returnValue(of(fakePlayers));
+    spyOn(statsService, 'getStatistics').and.returnValue(of(fakeStatistics));
   }));
 
   it('should create', () => {
@@ -62,6 +70,7 @@ describe('StatsTableComponent', () => {
 
       expect(statsService.getStatsCategories).toHaveBeenCalled();
       expect(statsService.getPlayers).toHaveBeenCalled();
+      expect(statsService.getStatistics).toHaveBeenCalled();
     });
   });
 
@@ -90,6 +99,20 @@ describe('StatsTableComponent', () => {
       component.getPlayers();
 
       expect(component.players).toEqual(fakePlayers);
+    });
+  });
+
+  describe('getStatistics', () => {
+    it('should use the stats service to get the statistics', () => {
+      component.getStatistics();
+
+      expect(statsService.getStatistics).toHaveBeenCalled();
+    });
+
+    it('should set the statistics of the component', () => {
+      component.getStatistics();
+
+      expect(component.statistics).toEqual(fakeStatistics);
     });
   });
 });
