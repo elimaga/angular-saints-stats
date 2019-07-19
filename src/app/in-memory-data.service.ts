@@ -8,6 +8,10 @@ import { StatsCategory } from './statsCategory';
 })
 export class InMemoryDataService implements InMemoryDbService {
 
+  static genId(statsCategories: StatsCategory[]): number {
+    return statsCategories.length > 0 ? Math.max(...statsCategories.map(category => category.id)) + 1 : 1;
+  }
+
   createDb() {
     const statsCategories = [
       { id: 1, abbreviation: 'G', name: 'Games' },
@@ -38,10 +42,27 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 26, abbreviation: 'GO_AO', name: 'Ground Outs Per Fly Out' },
       { id: 27, abbreviation: 'PA', name: 'Plate Appearances' }
     ];
-    return {statsCategories};
-  }
+    const players = [
+      { id: 3, name: 'Zeke' },
+      { id: 4, name: 'Michael' },
+      { id: 5, name: 'Dominic' },
+      { id: 6, name: 'Eli' },
+      { id: 8, name: 'Tony' },
+      { id: 9, name: 'Art' },
+      { id: 10, name: 'Taylor' },
+      { id: 12, name: 'Santos' },
+      { id: 16, name: 'Ryan' },
+      { id: 18, name: 'Jesse' },
+      { id: 19, name: 'Kolby' },
+      { id: 20, name: 'Lupe' },
+      { id: 23, name: 'Santana' },
+      { id: 23, name: 'Sal' },
+      { id: 48, name: 'Andrew' }
+    ];
 
-  genId(statsCategories: StatsCategory[]): number {
-    return statsCategories.length > 0 ? Math.max(...statsCategories.map(category => category.id)) + 1 : 1;
+    return {
+      statsCategories,
+      players
+    };
   }
 }
