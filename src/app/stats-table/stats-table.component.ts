@@ -16,6 +16,7 @@ export class StatsTableComponent implements OnInit {
 
   ngOnInit() {
     this.getStatsCategories();
+    this.getPlayers();
   }
 
   getStatsCategories(): void {

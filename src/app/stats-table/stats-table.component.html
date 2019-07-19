@@ -1,10 +1,17 @@
 <table cellpadding="8">
   <thead>
     <tr>
+      <th>#</th>
+      <th>Player</th>
       <th *ngFor="let category of statsCategories">
         {{ category.abbreviation }}
       </th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr *ngFor="let player of players">
+      <td>{{ player.id }}</td>
+      <td>{{ player.name }}</td>
+    </tr>
+  </tbody>
 </table>

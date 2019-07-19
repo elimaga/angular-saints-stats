@@ -57,10 +57,11 @@ describe('StatsTableComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('should get the stats categories on initialization', () => {
+    it('should get the stats categories and players on initialization', () => {
       component.ngOnInit();
 
       expect(statsService.getStatsCategories).toHaveBeenCalled();
+      expect(statsService.getPlayers).toHaveBeenCalled();
     });
   });
 
