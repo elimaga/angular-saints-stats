@@ -20,5 +20,4 @@ export class StatsTableComponent implements OnInit {
     this.statsService.getStatsCategories()
       .subscribe(categories => this.statsCategories = categories);
   }
-
 }

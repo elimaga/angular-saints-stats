@@ -4,6 +4,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {AppComponent} from './app.component';
 import {SaintsLogoComponent} from './saints-logo/saints-logo.component';
 import {InstagramLogoComponent} from './instagram-logo/instagram-logo.component';
+import {StatsTableComponent} from './stats-table/stats-table.component';
 import {KeyTableComponent} from './key-table/key-table.component';
 import {StatsService} from './stats.service';
 
@@ -13,8 +14,9 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         SaintsLogoComponent,
-        InstagramLogoComponent,
-        KeyTableComponent
+        StatsTableComponent,
+        KeyTableComponent,
+        InstagramLogoComponent
       ],
       providers: [
         StatsService
@@ -49,6 +51,13 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('app-saints-logo')).toBeTruthy();
+  });
+
+  it('should render the Stats Table', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('app-stats-table')).toBeTruthy();
   });
 
   it('should render the Key Table', () => {
