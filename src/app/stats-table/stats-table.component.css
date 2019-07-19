@@ -13,9 +13,9 @@ th {
   color: #010150;
 }
 
-th:hover {
-  text-decoration: underline;
-}
+/*th:hover {*/
+/*  text-decoration: underline;*/
+/*}*/
 
 tr:hover {
   background-color: #e3f113;
