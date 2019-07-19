@@ -112,7 +112,7 @@ describe('StatsService', () => {
       };
     });
 
-    it('should make an http request to get the statistics by the player id', () => {
+    it('should make an http request to get the statistics', () => {
       const fakeStatistics = [
         {playerId: 1, categoryId: 1, value: 4},
         {playerId: 1, categoryId: 3, value: 7},

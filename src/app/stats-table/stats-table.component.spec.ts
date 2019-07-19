@@ -13,7 +13,13 @@ describe('StatsTableComponent', () => {
   const fakeCategories = [
     {id: 1, abbreviation: 'FC', name: 'Fake Category'},
     {id: 2, abbreviation: 'CF', name: 'Category that is Fake'},
-    {id: 3, abbreviation: 'FY', name: 'Fakey Fake'}
+    {id: 3, abbreviation: 'FY', name: 'Fakey Fake Category'}
+  ];
+
+  const fakePlayers = [
+    {id: 1, name: 'Fake Player'},
+    {id: 2, name: 'Player that is Fake'},
+    {id: 3, name: 'Fakey Fake Player'}
   ];
 
   beforeEach(async(() => {
@@ -35,6 +41,7 @@ describe('StatsTableComponent', () => {
     statsService = TestBed.get(StatsService);
 
     spyOn(statsService, 'getStatsCategories').and.returnValue(of(fakeCategories));
+    spyOn(statsService, 'getPlayers').and.returnValue(of(fakePlayers));
   }));
 
   it('should create', () => {
@@ -68,6 +75,20 @@ describe('StatsTableComponent', () => {
       component.getStatsCategories();
 
       expect(component.statsCategories).toEqual(fakeCategories);
+    });
+  });
+
+  describe('getPlayers', () => {
+    it('should use the stats service to get the players', () => {
+      component.getPlayers();
+
+      expect(statsService.getPlayers).toHaveBeenCalled();
+    });
+
+    it('should set the players of the component', () => {
+      component.getPlayers();
+
+      expect(component.players).toEqual(fakePlayers);
     });
   });
 });
