@@ -30,7 +30,7 @@ describe('StatsService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('getStatsCategories', () => {
+  describe('Stats Categories', () => {
     let dataCallback;
     let errorCallback;
     let testObserver;
@@ -64,7 +64,7 @@ describe('StatsService', () => {
     });
   });
 
-  describe('getPlayers', () => {
+  describe('Players', () => {
     let dataCallback;
     let errorCallback;
     let testObserver;
@@ -93,6 +93,42 @@ describe('StatsService', () => {
       const players = dataCallback.args[0][0];
       expect(players.length).toBe(fakePlayers.length);
       expect(players).toEqual(fakePlayers);
+
+      expect(errorCallback.callCount).toEqual(0);
+    });
+  });
+
+  describe('Statistics', () => {
+    let dataCallback;
+    let errorCallback;
+    let testObserver;
+
+    beforeEach(() => {
+      dataCallback = sinon.spy();
+      errorCallback = sinon.spy();
+      testObserver = {
+        next: dataCallback,
+        error: errorCallback
+      };
+    });
+
+    it('should make an http request to get the statistics by the player id', () => {
+      const fakeStatistics = [
+        {playerId: 1, categoryId: 1, value: 4},
+        {playerId: 1, categoryId: 3, value: 7},
+        {playerId: 2, categoryId: 1, value: 5},
+        {playerId: 2, categoryId: 3, value: 9}
+      ];
+
+      service.getStatistics().subscribe(testObserver);
+
+      const req = httpMock.expectOne(`api/statistics`);
+      expect(req.request.method).toBe('GET');
+      req.flush(fakeStatistics);
+
+      const statisticsForPlayer2 = dataCallback.args[0][0];
+      expect(statisticsForPlayer2.length).toBe(fakeStatistics.length);
+      expect(statisticsForPlayer2).toEqual(fakeStatistics);
 
       expect(errorCallback.callCount).toEqual(0);
     });
