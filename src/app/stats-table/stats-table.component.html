@@ -1,4 +1,10 @@
 <table cellpadding="8">
-  <thead></thead>
+  <thead>
+    <tr>
+      <th *ngFor="let category of statsCategories">
+        {{category.abbreviation}}
+      </th>
+    </tr>
+  </thead>
   <tbody></tbody>
 </table>
