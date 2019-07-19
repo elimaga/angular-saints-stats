@@ -1,7 +1,7 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Injectable } from '@angular/core';
 
-import { StatsCategory } from './statsCategory';
+import { StatsCategory } from './objectClasses/statsCategory';
 
 @Injectable({
   providedIn: 'root'

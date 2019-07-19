@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import { StatsService } from '../stats.service';
-import { StatsCategory } from '../statsCategory';
+import { StatsCategory } from '../objectClasses/statsCategory';
 
 @Component({
   selector: 'app-key-table',

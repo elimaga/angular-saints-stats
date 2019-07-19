@@ -57,24 +57,44 @@ describe('StatsService', () => {
       req.flush(fakeCategories);
 
       const statsCategories = dataCallback.args[0][0];
-      expect(statsCategories.length).toBe(2);
+      expect(statsCategories.length).toBe(fakeCategories.length);
       expect(statsCategories).toEqual(fakeCategories);
 
       expect(errorCallback.callCount).toEqual(0);
     });
+  });
 
-    it('should handle when there is an error making the http request', () => {
-      service.getStatsCategories().subscribe(testObserver);
+  describe('getPlayers', () => {
+    let dataCallback;
+    let errorCallback;
+    let testObserver;
 
-      const fakeErrorResponse = {status: 400, statusText: 'Bad Request'};
-      const req = httpMock.expectOne('api/statsCategories');
+    beforeEach(() => {
+      dataCallback = sinon.spy();
+      errorCallback = sinon.spy();
+      testObserver = {
+        next: dataCallback,
+        error: errorCallback
+      };
+    });
+
+    it('should make an http request to get the players', () => {
+      const fakePlayers = [
+        {id: 1, name: 'Fake Player'},
+        {id: 2, name: 'Player that is Fake'}
+      ];
+
+      service.getPlayers().subscribe(testObserver);
+
+      const req = httpMock.expectOne('api/players');
       expect(req.request.method).toBe('GET');
-      req.flush(null, fakeErrorResponse);
+      req.flush(fakePlayers);
 
-      expect(dataCallback.callCount).toEqual(0);
-      const error = errorCallback.args[0][0];
-      expect(error.message).toEqual('Http failure response for api/statsCategories: ' +
-        `${fakeErrorResponse.status} ${fakeErrorResponse.statusText}`);
+      const players = dataCallback.args[0][0];
+      expect(players.length).toBe(fakePlayers.length);
+      expect(players).toEqual(fakePlayers);
+
+      expect(errorCallback.callCount).toEqual(0);
     });
   });
 });
