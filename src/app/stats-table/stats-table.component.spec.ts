@@ -49,7 +49,7 @@ describe('StatsTableComponent', () => {
 
     spyOn(statsService, 'getStatsCategories').and.returnValue(of(fakeCategories));
     spyOn(statsService, 'getPlayers').and.returnValue(of(fakePlayers));
-    spyOn(statsService, 'getStatistics').and.returnValue(of(fakeStatistics));
+    spyOn(statsService, 'getStatisticsByPlayer'); // .and.returnValue(of(fakeStatistics));
   }));
 
   it('should create', () => {
@@ -69,8 +69,6 @@ describe('StatsTableComponent', () => {
       component.ngOnInit();
 
       expect(statsService.getStatsCategories).toHaveBeenCalled();
-      expect(statsService.getPlayers).toHaveBeenCalled();
-      expect(statsService.getStatistics).toHaveBeenCalled();
     });
   });
 
@@ -88,31 +86,17 @@ describe('StatsTableComponent', () => {
     });
   });
 
-  describe('getPlayers', () => {
+  describe('getPlayersAndTheirStatistics', () => {
     it('should use the stats service to get the players', () => {
-      component.getPlayers();
+      component.getPlayersAndTheirStatistics();
 
       expect(statsService.getPlayers).toHaveBeenCalled();
     });
 
-    it('should set the players of the component', () => {
-      component.getPlayers();
+    it('should use the stats service to get the statistics for each player', () => {
+      component.getPlayersAndTheirStatistics();
 
-      expect(component.players).toEqual(fakePlayers);
-    });
-  });
-
-  describe('getStatistics', () => {
-    it('should use the stats service to get the statistics', () => {
-      component.getStatistics();
-
-      expect(statsService.getStatistics).toHaveBeenCalled();
-    });
-
-    it('should set the statistics of the component', () => {
-      component.getStatistics();
-
-      expect(component.statistics).toEqual(fakeStatistics);
+      expect(statsService.getStatisticsByPlayer).toHaveBeenCalledTimes(fakePlayers.length);
     });
   });
 });

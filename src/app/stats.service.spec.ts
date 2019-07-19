@@ -112,27 +112,6 @@ describe('StatsService', () => {
       };
     });
 
-    it('should make an http request to get the statistics', () => {
-      const fakeStatistics = [
-        {playerId: 1, categoryId: 1, value: 4},
-        {playerId: 1, categoryId: 3, value: 7},
-        {playerId: 2, categoryId: 1, value: 5},
-        {playerId: 2, categoryId: 3, value: 9}
-      ];
-
-      service.getStatistics().subscribe(testObserver);
-
-      const req = httpMock.expectOne(`api/statistics`);
-      expect(req.request.method).toBe('GET');
-      req.flush(fakeStatistics);
-
-      const statisticsForPlayer2 = dataCallback.args[0][0];
-      expect(statisticsForPlayer2.length).toBe(fakeStatistics.length);
-      expect(statisticsForPlayer2).toEqual(fakeStatistics);
-
-      expect(errorCallback.callCount).toEqual(0);
-    });
-
     it('should make an http request to get the statistics by the playerId', () => {
       const playerId = 2;
 
