@@ -11,6 +11,7 @@ import {Player} from '../objectClasses/player';
 export class StatsTableComponent implements OnInit {
   statsCategories: StatsCategory[];
   players: Player[];
+  statistics;
 
   constructor(private statsService: StatsService) { }
 
@@ -30,8 +31,15 @@ export class StatsTableComponent implements OnInit {
 
   getPlayersAndTheirStatistics(): void {
     this.getPlayers((players) => {
-      players.forEach(player => {
-        this.statsService.getStatisticsByPlayer(player.id);
+      players.sort((player1, player2) => {
+        return player1.id - player2.id;
+      });
+
+      this.statistics = players.map(player => {
+        return {
+          '#': player.id,
+          player: player.name
+        };
       });
     });
   }

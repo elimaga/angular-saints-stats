@@ -17,9 +17,9 @@ describe('StatsTableComponent', () => {
   ];
 
   const fakePlayers = [
-    {id: 1, name: 'Fake Player'},
-    {id: 2, name: 'Player that is Fake'},
-    {id: 3, name: 'Fakey Fake Player'}
+    {id: 3, name: 'Fake Player'},
+    {id: 1, name: 'Player that is Fake'},
+    {id: 2, name: 'Fakey Fake Player'}
   ];
 
   const fakeStatistics = [
@@ -93,10 +93,22 @@ describe('StatsTableComponent', () => {
       expect(statsService.getPlayers).toHaveBeenCalled();
     });
 
-    it('should use the stats service to get the statistics for each player', () => {
+    it('should add the players and their numbers to the statistics array', () => {
+      const expectedStatisticsArray = [
+        {'#': 1, player: 'Player that is Fake'},
+        {'#': 2, player: 'Fakey Fake Player'},
+        {'#': 3, player: 'Fake Player'}
+      ];
+
       component.getPlayersAndTheirStatistics();
 
-      expect(statsService.getStatisticsByPlayer).toHaveBeenCalledTimes(fakePlayers.length);
+      expect(JSON.stringify(component.statistics)).toEqual(JSON.stringify(expectedStatisticsArray));
     });
+
+    // it('should use the stats service to get the statistics for each player', () => {
+    //   component.getPlayersAndTheirStatistics();
+    //
+    //   expect(statsService.getStatisticsByPlayer).toHaveBeenCalledTimes(fakePlayers.length);
+    // });
   });
 });
