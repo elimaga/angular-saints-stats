@@ -9,9 +9,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let player of players">
-      <td>{{ player.id }}</td>
-      <td>{{ player.name }}</td>
+    <tr *ngFor="let statistic of statistics">
+      <td>{{ statistic['#'] }}</td>
+      <td>{{ statistic['player'] }}</td>
+      <td *ngFor="let category of statsCategories">
+        {{ statistic[category.abbreviation] }}
+      </td>
     </tr>
   </tbody>
 </table>

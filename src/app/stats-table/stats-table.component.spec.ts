@@ -15,6 +15,12 @@ describe('StatsTableComponent', () => {
     { id: 1, abbreviation: 'CF', name: 'Category that is Fake' },
     { id: 3, abbreviation: 'FY', name: 'Fakey Fake Category' }
   ];
+  
+  let fakePlayers;
+  let fakeStatistics;
+  
+  let getPlayersSpy;
+  let getStatisticsByPlayerSpy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -34,7 +40,38 @@ describe('StatsTableComponent', () => {
 
     statsService = TestBed.get(StatsService);
 
+    fakePlayers = [
+      { id: 3, name: 'Fake Player' },
+      { id: 1, name: 'Player that is Fake' },
+      { id: 2, name: 'Fakey Fake Player' }
+    ];
+
+    fakeStatistics = [
+      { playerId: 6, categoryId: 1, value: 9 },
+      { playerId: 6, categoryId: 3, value: 14 },
+      { playerId: 6, categoryId: 4, value: 12 },
+      { playerId: 6, categoryId: 5, value: 1 },
+      { playerId: 6, categoryId: 6, value: 0 },
+      { playerId: 6, categoryId: 7, value: 0 },
+      { playerId: 6, categoryId: 8, value: 5 },
+      { playerId: 6, categoryId: 9, value: 10 },
+      { playerId: 6, categoryId: 10, value: 2 },
+      { playerId: 6, categoryId: 11, value: 8 },
+      { playerId: 6, categoryId: 12, value: 0 },
+      { playerId: 6, categoryId: 17, value: 0 },
+      { playerId: 6, categoryId: 18, value: 0 },
+      { playerId: 6, categoryId: 19, value: 0 },
+      { playerId: 6, categoryId: 20, value: 1 },
+      { playerId: 6, categoryId: 23, value: 0 },
+      { playerId: 6, categoryId: 24, value: 7 },
+      { playerId: 6, categoryId: 25, value: 6 },
+      { playerId: 6, categoryId: 27, value: 41 }
+    ];
+
+
     spyOn(statsService, 'getStatsCategories').and.returnValue(of(fakeCategories));
+    getPlayersSpy = spyOn(statsService, 'getPlayers').and.returnValue(of(fakePlayers));
+    getStatisticsByPlayerSpy = spyOn(statsService, 'getStatisticsByPlayer').and.returnValue(of(fakeStatistics));;
   }));
 
   it('should create', () => {
@@ -54,6 +91,8 @@ describe('StatsTableComponent', () => {
       component.ngOnInit();
 
       expect(statsService.getStatsCategories).toHaveBeenCalled();
+      expect(statsService.getPlayers).toHaveBeenCalled();
+      expect(statsService.getStatisticsByPlayer).toHaveBeenCalled();
     });
   });
 
@@ -78,41 +117,8 @@ describe('StatsTableComponent', () => {
   });
 
   describe('getPlayersAndTheirStatistics', () => {
-    let fakePlayers;
-    let fakeStatistics;
-
-    beforeEach(() => {
-      fakePlayers = [
-        { id: 3, name: 'Fake Player' },
-        { id: 1, name: 'Player that is Fake' },
-        { id: 2, name: 'Fakey Fake Player' }
-      ];
-
-      fakeStatistics = [
-        { playerId: 6, categoryId: 1, value: 9 },
-        { playerId: 6, categoryId: 3, value: 14 },
-        { playerId: 6, categoryId: 4, value: 12 },
-        { playerId: 6, categoryId: 5, value: 1 },
-        { playerId: 6, categoryId: 6, value: 0 },
-        { playerId: 6, categoryId: 7, value: 0 },
-        { playerId: 6, categoryId: 8, value: 5 },
-        { playerId: 6, categoryId: 9, value: 10 },
-        { playerId: 6, categoryId: 10, value: 2 },
-        { playerId: 6, categoryId: 11, value: 8 },
-        { playerId: 6, categoryId: 12, value: 0 },
-        { playerId: 6, categoryId: 17, value: 0 },
-        { playerId: 6, categoryId: 18, value: 0 },
-        { playerId: 6, categoryId: 19, value: 0 },
-        { playerId: 6, categoryId: 20, value: 1 },
-        { playerId: 6, categoryId: 23, value: 0 },
-        { playerId: 6, categoryId: 24, value: 7 },
-        { playerId: 6, categoryId: 25, value: 6 },
-        { playerId: 6, categoryId: 27, value: 41 }
-      ];
-    });
-
     it('should use the stats service to get the players', () => {
-      spyOn(statsService, 'getPlayers').and.returnValue(of(fakePlayers));
+      getPlayersSpy.and.returnValue(of(fakePlayers));
 
       component.getPlayersAndTheirStatistics();
 
@@ -120,8 +126,7 @@ describe('StatsTableComponent', () => {
     });
 
     it('should use the stats service to get the statistics for each player', () => {
-      spyOn(statsService, 'getPlayers').and.returnValue(of(fakePlayers));
-      spyOn(statsService, 'getStatisticsByPlayer').and.returnValue(of(fakeStatistics));
+      getPlayersSpy.and.returnValue(of(fakePlayers));
 
       component.getPlayersAndTheirStatistics();
 
@@ -163,8 +168,8 @@ describe('StatsTableComponent', () => {
           PA: 41
         }
       ];
-      spyOn(statsService, 'getPlayers').and.returnValue(of(fakePlayers));
-      spyOn(statsService, 'getStatisticsByPlayer').and.returnValue(of(fakeStatistics));
+      getPlayersSpy.and.returnValue(of(fakePlayers));
+      getStatisticsByPlayerSpy.and.returnValue(of(fakeStatistics));
 
       component.getPlayersAndTheirStatistics();
 
@@ -227,8 +232,8 @@ describe('StatsTableComponent', () => {
           PA: 10
         }
       ];
-      spyOn(statsService, 'getPlayers').and.returnValue(of(fakePlayers));
-      spyOn(statsService, 'getStatisticsByPlayer').and.returnValue(of(fakeStatistics));
+      getPlayersSpy.and.returnValue(of(fakePlayers));
+      getStatisticsByPlayerSpy.and.returnValue(of(fakeStatistics));
 
       component.getPlayersAndTheirStatistics();
 
