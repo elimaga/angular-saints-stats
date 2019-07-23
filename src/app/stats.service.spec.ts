@@ -117,7 +117,7 @@ describe('StatsService', () => {
 
       service.getStatisticsByPlayer(playerId).subscribe(testObserver);
 
-      const req = httpMock.expectOne(`api/statistics?playerId=${playerId}`);
+      const req = httpMock.expectOne(`api/statistics?playerId=^${playerId}$`);
       expect(req.request.method).toBe('GET');
     });
   });

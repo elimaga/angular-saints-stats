@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StatsService } from '../stats.service';
 import { StatsCategory } from '../objectClasses/statsCategory';
-import { Player } from '../objectClasses/player';
-import { Statistic } from '../objectClasses/statistic';
 
 @Component({
   selector: 'app-stats-table',
@@ -11,7 +9,6 @@ import { Statistic } from '../objectClasses/statistic';
 })
 export class StatsTableComponent implements OnInit {
   statsCategories: StatsCategory[];
-  players: Player[];
   statistics = [];
 
   constructor(private statsService: StatsService) {
@@ -48,7 +45,7 @@ export class StatsTableComponent implements OnInit {
             const atBats = plateAppearances - walks - statistics[11].value - statistics[13].value - statistics[14].value;
             const totalBases = (statistics[2].value - statistics[3].value - statistics[4].value - statistics[5].value) +
               (2 * statistics[3].value) + (3 * statistics[4].value) + (4 * statistics[5].value);
-            const sluggingPercentage = totalBases / atBats;       
+            const sluggingPercentage = totalBases / atBats;
             const plateAppearancesNonSac = (atBats + walks + statistics[14].value);
             const onBasePercentage = (statistics[2].value + walks) / plateAppearancesNonSac;
 

@@ -25,6 +25,6 @@ export class StatsService {
   }
 
   getStatisticsByPlayer(playerId: number): Observable<Statistic[]> {
-    return this.http.get<Statistic[]>(`${this.statisticsUrl}?playerId=${playerId}`);
+    return this.http.get<Statistic[]>(`${this.statisticsUrl}?playerId=^${playerId}$`);
   }
 }
