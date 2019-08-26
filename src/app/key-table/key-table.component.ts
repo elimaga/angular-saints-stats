@@ -21,6 +21,8 @@ export class KeyTableComponent implements OnInit {
   }
 
   private splitCategoriesIntoGroupsOfThree(statsCategories: StatsCategory[]): void {
+    console.log('these are the categories', statsCategories);
+    
     let outerArrayIndex = -1;
     statsCategories.forEach((category, index) => {
       if (index % 3 === 0) {

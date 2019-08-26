@@ -46,8 +46,8 @@ describe('StatsService', () => {
 
     it('should make an http request to get the stats categories', () => {
       const fakeCategories = [
-        {id: 1, abbreviation: 'FC', name: 'Fake Category'},
-        {id: 2, abbreviation: 'CF', name: 'Category that is Fake'}
+        {Id: 1, Abbreviation: 'FC', CategoryName: 'Fake Category'},
+        {Id: 2, Abbreviation: 'CF', CategoryName: 'Category that is Fake'}
       ];
 
       service.getStatsCategories().subscribe(testObserver);

@@ -92,7 +92,7 @@ export class StatsTableComponent implements OnInit {
 
   private sortCategoriesAndSave(categories) {
     categories.sort((category1, category2) => {
-      return category1.id - category2.id;
+      return category1.Id - category2.Id;
     });
 
     this.statsCategories = categories;

@@ -1,5 +1,5 @@
 export class StatsCategory {
-    id: number;
-    abbreviation: string;
-    name: string;
+    Id: number;
+    Abbreviation: string;
+    CategoryName: string;
 }

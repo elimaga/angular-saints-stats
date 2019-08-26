@@ -10,7 +10,7 @@ import { Statistic } from './objectClasses/statistic';
   providedIn: 'root'
 })
 export class StatsService {
-  private statsCategoriesUrl = 'api/statsCategories';
+  private statsCategoriesUrl = 'https://pksh7vt4mh.execute-api.us-west-1.amazonaws.com/test/statscategories';
   private playersUrl = 'api/players';
   private statisticsUrl = 'api/statistics';
 

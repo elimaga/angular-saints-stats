@@ -4,7 +4,7 @@
       <th>#</th>
       <th>Player</th>
       <th *ngFor="let category of statsCategories">
-        {{ category.abbreviation }}
+        {{ category.Abbreviation }}
       </th>
     </tr>
   </thead>
@@ -13,7 +13,7 @@
       <td>{{ statistic['#'] }}</td>
       <td>{{ statistic['player'] }}</td>
       <td *ngFor="let category of statsCategories">
-        {{ statistic[category.abbreviation] }}
+        {{ statistic[category.Abbreviation] }}
       </td>
     </tr>
   </tbody>
