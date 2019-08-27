@@ -8,33 +8,33 @@ describe('InMemoryDataService', () => {
 
   const emptyStatsCategories = [];
   const statsCategories = [
-    { id: 1, abbreviation: 'G', name: 'Games' },
-    { id: 2, abbreviation: 'AB', name: 'At Bats' },
-    { id: 3, abbreviation: 'R', name: 'Runs' },
-    { id: 4, abbreviation: 'H', name: 'Hits' },
-    { id: 5, abbreviation: '2B', name: 'Doubles' },
-    { id: 6, abbreviation: '3B', name: 'Triples' },
-    { id: 7, abbreviation: 'HR', name: 'Homeruns' },
-    { id: 8, abbreviation: 'RBI', name: 'Runs Batted In' },
-    { id: 9, abbreviation: 'BB', name: 'Base on Balls' },
-    { id: 10, abbreviation: 'SO', name: 'Strikeouts' },
-    { id: 11, abbreviation: 'SB', name: 'Stolen Bases' },
-    { id: 12, abbreviation: 'CS', name: 'Caught Stealing' },
-    { id: 13, abbreviation: 'AVG', name: 'Average' },
-    { id: 14, abbreviation: 'OBP', name: 'On-Base Percentage' },
-    { id: 15, abbreviation: 'SLG', name: 'Slugging Percentage' },
-    { id: 16, abbreviation: 'OPS', name: 'On-Base Plus Slugging' },
-    { id: 17, abbreviation: 'IBB', name: 'Intentional Walks' },
-    { id: 18, abbreviation: 'HBP', name: 'Hit By Pitch' },
-    { id: 19, abbreviation: 'SAC', name: 'Sacrifice Bunts' },
-    { id: 20, abbreviation: 'SF', name: 'Sacrifice Flys' },
-    { id: 21, abbreviation: 'TB', name: 'Total Bases' },
-    { id: 22, abbreviation: 'XBH', name: 'Extra Base Hits' },
-    { id: 23, abbreviation: 'GDP', name: 'Grounded Into Double Plays' },
-    { id: 24, abbreviation: 'GO', name: 'Ground Outs' },
-    { id: 25, abbreviation: 'AO', name: 'Fly Outs' },
-    { id: 26, abbreviation: 'GO_AO', name: 'Ground Outs Per Fly Out' },
-    { id: 27, abbreviation: 'PA', name: 'Plate Appearances' }
+    { Id: 1, Abbreviation: 'G', CategoryName: 'Games' },
+    { Id: 2, Abbreviation: 'AB', CategoryName: 'At Bats' },
+    { Id: 3, Abbreviation: 'R', CategoryName: 'Runs' },
+    { Id: 4, Abbreviation: 'H', CategoryName: 'Hits' },
+    { Id: 5, Abbreviation: '2B', CategoryName: 'Doubles' },
+    { Id: 6, Abbreviation: '3B', CategoryName: 'Triples' },
+    { Id: 7, Abbreviation: 'HR', CategoryName: 'Homeruns' },
+    { Id: 8, Abbreviation: 'RBI', CategoryName: 'Runs Batted In' },
+    { Id: 9, Abbreviation: 'BB', CategoryName: 'Base on Balls' },
+    { Id: 10, Abbreviation: 'SO', CategoryName: 'Strikeouts' },
+    { Id: 11, Abbreviation: 'SB', CategoryName: 'Stolen Bases' },
+    { Id: 12, Abbreviation: 'CS', CategoryName: 'Caught Stealing' },
+    { Id: 13, Abbreviation: 'AVG', CategoryName: 'Average' },
+    { Id: 14, Abbreviation: 'OBP', CategoryName: 'On-Base Percentage' },
+    { Id: 15, Abbreviation: 'SLG', CategoryName: 'Slugging Percentage' },
+    { Id: 16, Abbreviation: 'OPS', CategoryName: 'On-Base Plus Slugging' },
+    { Id: 17, Abbreviation: 'IBB', CategoryName: 'Intentional Walks' },
+    { Id: 18, Abbreviation: 'HBP', CategoryName: 'Hit By Pitch' },
+    { Id: 19, Abbreviation: 'SAC', CategoryName: 'Sacrifice Bunts' },
+    { Id: 20, Abbreviation: 'SF', CategoryName: 'Sacrifice Flys' },
+    { Id: 21, Abbreviation: 'TB', CategoryName: 'Total Bases' },
+    { Id: 22, Abbreviation: 'XBH', CategoryName: 'Extra Base Hits' },
+    { Id: 23, Abbreviation: 'GDP', CategoryName: 'Grounded Into Double Plays' },
+    { Id: 24, Abbreviation: 'GO', CategoryName: 'Ground Outs' },
+    { Id: 25, Abbreviation: 'AO', CategoryName: 'Fly Outs' },
+    { Id: 26, Abbreviation: 'GO_AO', CategoryName: 'Ground Outs Per Fly Out' },
+    { Id: 27, Abbreviation: 'PA', CategoryName: 'Plate Appearances' }
   ];
   const players = [
     { id: 3, name: 'Zeke' },
@@ -357,7 +357,6 @@ describe('InMemoryDataService', () => {
   describe('createDb', () => {
     it('should create the the table with the correct values', () => {
       const expectedDatabase = {
-        statsCategories,
         players,
         statistics
       };

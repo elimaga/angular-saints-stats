@@ -11,12 +11,12 @@ describe('KeyTableComponent', () => {
   let statsService: StatsService;
 
   const fakeCategories = [
-    {id: 1, abbreviation: 'FC', name: 'Fake Category'},
-    {id: 2, abbreviation: 'CF', name: 'Category that is Fake'},
-    {id: 3, abbreviation: 'FY', name: 'Fakey Fake'},
-    {id: 4, abbreviation: 'WFO', name: 'Whoa, another fake one'},
-    {id: 5, abbreviation: 'WTF', name: 'What the Fake'},
-    {id: 6, abbreviation: 'HIF', name: 'Hi, how are ya, I am fake'}
+    {Id: 1, Abbreviation: 'FC', CategoryName: 'Fake Category'},
+    {Id: 2, Abbreviation: 'CF', CategoryName: 'Category that is Fake'},
+    {Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake'},
+    {Id: 4, Abbreviation: 'WFO', CategoryName: 'Whoa, another fake one'},
+    {Id: 5, Abbreviation: 'WTF', CategoryName: 'What the Fake'},
+    {Id: 6, Abbreviation: 'HIF', CategoryName: 'Hi, how are ya, I am fake'}
   ];
 
   beforeEach(async(() => {
@@ -80,14 +80,14 @@ describe('KeyTableComponent', () => {
     it('should split the categories into groups of three', () => {
       const expectedCategoriesInThrees = [
         [
-          {id: 1, abbreviation: 'FC', name: 'Fake Category'},
-          {id: 2, abbreviation: 'CF', name: 'Category that is Fake'},
-          {id: 3, abbreviation: 'FY', name: 'Fakey Fake'}
+          {Id: 1, Abbreviation: 'FC', CategoryName: 'Fake Category'},
+          {Id: 2, Abbreviation: 'CF', CategoryName: 'Category that is Fake'},
+          {Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake'}
         ],
         [
-          {id: 4, abbreviation: 'WFO', name: 'Whoa, another fake one'},
-          {id: 5, abbreviation: 'WTF', name: 'What the Fake'},
-          {id: 6, abbreviation: 'HIF', name: 'Hi, how are ya, I am fake'}
+          {Id: 4, Abbreviation: 'WFO', CategoryName: 'Whoa, another fake one'},
+          {Id: 5, Abbreviation: 'WTF', CategoryName: 'What the Fake'},
+          {Id: 6, Abbreviation: 'HIF', CategoryName: 'Hi, how are ya, I am fake'}
         ]
       ];
 

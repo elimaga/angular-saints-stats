@@ -11,14 +11,13 @@ describe('StatsTableComponent', () => {
   let statsService: StatsService;
 
   const fakeCategories = [
-    { id: 2, abbreviation: 'FC', name: 'Fake Category' },
-    { id: 1, abbreviation: 'CF', name: 'Category that is Fake' },
-    { id: 3, abbreviation: 'FY', name: 'Fakey Fake Category' }
+    { Id: 2, Abbreviation: 'FC', CategoryName: 'Fake Category' },
+    { Id: 1, Abbreviation: 'CF', CategoryName: 'Category that is Fake' },
+    { Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake Category' }
   ];
-  
+
   let fakePlayers;
   let fakeStatistics;
-  
   let getPlayersSpy;
   let getStatisticsByPlayerSpy;
 
@@ -105,9 +104,9 @@ describe('StatsTableComponent', () => {
 
     it('should set the stats categories of the component', () => {
       const expectedCategoriesArray = [
-        { id: 1, abbreviation: 'CF', name: 'Category that is Fake' },
-        { id: 2, abbreviation: 'FC', name: 'Fake Category' },
-        { id: 3, abbreviation: 'FY', name: 'Fakey Fake Category' }
+        { Id: 1, Abbreviation: 'CF', CategoryName: 'Category that is Fake' },
+        { Id: 2, Abbreviation: 'FC', CategoryName: 'Fake Category' },
+        { Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake Category' }
       ];
 
       component.getStatsCategories();

@@ -52,7 +52,7 @@ describe('StatsService', () => {
 
       service.getStatsCategories().subscribe(testObserver);
 
-      const req = httpMock.expectOne('api/statsCategories');
+      const req = httpMock.expectOne('https://pksh7vt4mh.execute-api.us-west-1.amazonaws.com/test/statscategories');
       expect(req.request.method).toBe('GET');
       req.flush(fakeCategories);
 
