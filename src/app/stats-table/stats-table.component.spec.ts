@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {of} from 'rxjs';
 
-import { StatsTableComponent } from './stats-table.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { StatsService } from '../stats.service';
+import {StatsTableComponent} from './stats-table.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {StatsService} from '../stats.service';
 
 describe('StatsTableComponent', () => {
   let component: StatsTableComponent;
@@ -11,15 +11,35 @@ describe('StatsTableComponent', () => {
   let statsService: StatsService;
 
   const fakeCategories = [
-    { Id: 2, Abbreviation: 'FC', CategoryName: 'Fake Category' },
-    { Id: 1, Abbreviation: 'CF', CategoryName: 'Category that is Fake' },
-    { Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake Category' }
+    {Id: 1, Abbreviation: 'CF', CategoryName: 'Category that is Fake'},
+    {Id: 2, Abbreviation: 'FC', CategoryName: 'Fake Category'},
+    {Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake Category'}
+  ];
+  const fakeStatistics = [
+    {
+      Number: 3,
+      Name: 'Zeke',
+      CF: 6,
+      FC: 12,
+      FY: 8
+    },
+    {
+      Number: 6,
+      Name: 'Eli',
+      CF: 3,
+      FC: 9,
+      FY: 0
+    },
+    {
+      Number: 12,
+      Name: 'Santos',
+      CF: 7,
+      FC: 11,
+      FY: 5
+    }
   ];
 
-  let fakePlayers;
-  let fakeStatistics;
-  let getPlayersSpy;
-  let getStatisticsByPlayerSpy;
+  let getStatisticsSpy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -39,38 +59,8 @@ describe('StatsTableComponent', () => {
 
     statsService = TestBed.get(StatsService);
 
-    fakePlayers = [
-      { id: 3, name: 'Fake Player' },
-      { id: 1, name: 'Player that is Fake' },
-      { id: 2, name: 'Fakey Fake Player' }
-    ];
-
-    fakeStatistics = [
-      { playerId: 6, categoryId: 1, value: 9 },
-      { playerId: 6, categoryId: 3, value: 14 },
-      { playerId: 6, categoryId: 4, value: 12 },
-      { playerId: 6, categoryId: 5, value: 1 },
-      { playerId: 6, categoryId: 6, value: 0 },
-      { playerId: 6, categoryId: 7, value: 0 },
-      { playerId: 6, categoryId: 8, value: 5 },
-      { playerId: 6, categoryId: 9, value: 10 },
-      { playerId: 6, categoryId: 10, value: 2 },
-      { playerId: 6, categoryId: 11, value: 8 },
-      { playerId: 6, categoryId: 12, value: 0 },
-      { playerId: 6, categoryId: 17, value: 0 },
-      { playerId: 6, categoryId: 18, value: 0 },
-      { playerId: 6, categoryId: 19, value: 0 },
-      { playerId: 6, categoryId: 20, value: 1 },
-      { playerId: 6, categoryId: 23, value: 0 },
-      { playerId: 6, categoryId: 24, value: 7 },
-      { playerId: 6, categoryId: 25, value: 6 },
-      { playerId: 6, categoryId: 27, value: 41 }
-    ];
-
-
     spyOn(statsService, 'getStatsCategories').and.returnValue(of(fakeCategories));
-    getPlayersSpy = spyOn(statsService, 'getPlayers').and.returnValue(of(fakePlayers));
-    getStatisticsByPlayerSpy = spyOn(statsService, 'getStatisticsByPlayer').and.returnValue(of(fakeStatistics));;
+    getStatisticsSpy = spyOn(statsService, 'getStatistics').and.returnValue(of(fakeStatistics));
   }));
 
   it('should create', () => {
@@ -90,8 +80,7 @@ describe('StatsTableComponent', () => {
       component.ngOnInit();
 
       expect(statsService.getStatsCategories).toHaveBeenCalled();
-      expect(statsService.getPlayers).toHaveBeenCalled();
-      expect(statsService.getStatisticsByPlayer).toHaveBeenCalled();
+      expect(statsService.getStatistics).toHaveBeenCalled();
     });
   });
 
@@ -103,140 +92,23 @@ describe('StatsTableComponent', () => {
     });
 
     it('should set the stats categories of the component', () => {
-      const expectedCategoriesArray = [
-        { Id: 1, Abbreviation: 'CF', CategoryName: 'Category that is Fake' },
-        { Id: 2, Abbreviation: 'FC', CategoryName: 'Fake Category' },
-        { Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake Category' }
-      ];
-
       component.getStatsCategories();
 
-      expect(component.statsCategories).toEqual(expectedCategoriesArray);
+      expect(component.statsCategories).toEqual(fakeCategories);
     });
   });
 
-  describe('getPlayersAndTheirStatistics', () => {
-    it('should use the stats service to get the players', () => {
-      getPlayersSpy.and.returnValue(of(fakePlayers));
+  describe('getStatistics', () => {
+    it('should use the stats service to get the statistics', () => {
+      component.getStatistics();
 
-      component.getPlayersAndTheirStatistics();
-
-      expect(statsService.getPlayers).toHaveBeenCalled();
+      expect(statsService.getStatistics).toHaveBeenCalled();
     });
 
-    it('should use the stats service to get the statistics for each player', () => {
-      getPlayersSpy.and.returnValue(of(fakePlayers));
+    it('should set the statistics of the component', () => {
+      component.getStatistics();
 
-      component.getPlayersAndTheirStatistics();
-
-      expect(statsService.getStatisticsByPlayer).toHaveBeenCalledTimes(fakePlayers.length);
-    });
-
-    it('should calculate all the statistics and add them to statistics array', () => {
-      fakePlayers = [{ id: 6, name: 'Eli' }];
-      const expectedStatisticsArray = [
-        {
-          '#': 6,
-          player: 'Eli',
-          G: 9,
-          AB: 30,
-          R: 14,
-          H: 12,
-          '2B': 1,
-          '3B': 0,
-          HR: 0,
-          RBI: 5,
-          BB: 10,
-          SO: 2,
-          SB: 8,
-          CS: 0,
-          AVG: '0.400',
-          OBP: '0.537',
-          SLG: '0.433',
-          OPS: '0.970',
-          IBB: 0,
-          HBP: 0,
-          SAC: 0,
-          SF: 1,
-          TB: 13,
-          XBH: 1,
-          GDP: 0,
-          GO: 7,
-          AO: 6,
-          GO_AO: '1.17',
-          PA: 41
-        }
-      ];
-      getPlayersSpy.and.returnValue(of(fakePlayers));
-      getStatisticsByPlayerSpy.and.returnValue(of(fakeStatistics));
-
-      component.getPlayersAndTheirStatistics();
-
-      expect(component.statistics).toEqual(expectedStatisticsArray);
-    });
-
-    it('should handle error cases in the calculations', () => {
-      fakePlayers = [{ id: 6, name: 'Eli' }];
-      fakeStatistics = [
-        { playerId: 6, categoryId: 1, value: 9 },
-        { playerId: 6, categoryId: 3, value: 14 },
-        { playerId: 6, categoryId: 4, value: 12 },
-        { playerId: 6, categoryId: 5, value: 1 },
-        { playerId: 6, categoryId: 6, value: 0 },
-        { playerId: 6, categoryId: 7, value: 0 },
-        { playerId: 6, categoryId: 8, value: 5 },
-        { playerId: 6, categoryId: 9, value: 0 },
-        { playerId: 6, categoryId: 10, value: 2 },
-        { playerId: 6, categoryId: 11, value: 8 },
-        { playerId: 6, categoryId: 12, value: 0 },
-        { playerId: 6, categoryId: 17, value: 0 },
-        { playerId: 6, categoryId: 18, value: 0 },
-        { playerId: 6, categoryId: 19, value: 10 },
-        { playerId: 6, categoryId: 20, value: 0 },
-        { playerId: 6, categoryId: 23, value: 0 },
-        { playerId: 6, categoryId: 24, value: 7 },
-        { playerId: 6, categoryId: 25, value: 0 },
-        { playerId: 6, categoryId: 27, value: 10 }
-      ];
-      const expectedStatisticsArray = [
-        {
-          '#': 6,
-          player: 'Eli',
-          G: 9,
-          AB: 0,
-          R: 14,
-          H: 12,
-          '2B': 1,
-          '3B': 0,
-          HR: 0,
-          RBI: 5,
-          BB: 0,
-          SO: 2,
-          SB: 8,
-          CS: 0,
-          AVG: '.---',
-          OBP: '.---',
-          SLG: '.---',
-          OPS: '.---',
-          IBB: 0,
-          HBP: 0,
-          SAC: 10,
-          SF: 0,
-          TB: 13,
-          XBH: 1,
-          GDP: 0,
-          GO: 7,
-          AO: 0,
-          GO_AO: '.--',
-          PA: 10
-        }
-      ];
-      getPlayersSpy.and.returnValue(of(fakePlayers));
-      getStatisticsByPlayerSpy.and.returnValue(of(fakeStatistics));
-
-      component.getPlayersAndTheirStatistics();
-
-      expect(component.statistics).toEqual(expectedStatisticsArray);
+      expect(component.statistics).toEqual(fakeStatistics);
     });
   });
 });
