@@ -39,8 +39,6 @@ describe('StatsTableComponent', () => {
     }
   ];
 
-  let getStatisticsSpy;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [StatsTableComponent],
@@ -60,7 +58,7 @@ describe('StatsTableComponent', () => {
     statsService = TestBed.get(StatsService);
 
     spyOn(statsService, 'getStatsCategories').and.returnValue(of(fakeCategories));
-    getStatisticsSpy = spyOn(statsService, 'getStatistics').and.returnValue(of(fakeStatistics));
+    spyOn(statsService, 'getStatistics').and.returnValue(of(fakeStatistics));
   }));
 
   it('should create', () => {
@@ -81,6 +79,12 @@ describe('StatsTableComponent', () => {
 
       expect(statsService.getStatsCategories).toHaveBeenCalled();
       expect(statsService.getStatistics).toHaveBeenCalled();
+    });
+  });
+
+  describe('objectValues', () => {
+    it('should be a reference to Object.values', () => {
+      expect(component.objectValues).toEqual(Object.values);
     });
   });
 
@@ -108,7 +112,7 @@ describe('StatsTableComponent', () => {
     it('should set the statistics of the component', () => {
       component.getStatistics();
 
-      expect(component.statistics).toEqual(fakeStatistics);
+      expect(component.statsForEachPlayer).toEqual(fakeStatistics);
     });
   });
 });

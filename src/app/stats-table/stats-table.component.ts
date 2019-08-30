@@ -9,7 +9,8 @@ import { StatsCategory } from '../objectClasses/statsCategory';
 })
 export class StatsTableComponent implements OnInit {
   statsCategories: StatsCategory[];
-  statistics = [];
+  statsForEachPlayer = [];
+  objectValues = Object.values;
 
   constructor(private statsService: StatsService) {
   }
@@ -26,6 +27,6 @@ export class StatsTableComponent implements OnInit {
 
   getStatistics(): void {
     this.statsService.getStatistics()
-      .subscribe(statistics => this.statistics = statistics);
+      .subscribe(statistics => this.statsForEachPlayer = statistics);
   }
 }
