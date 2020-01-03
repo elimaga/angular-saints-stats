@@ -17,7 +17,7 @@ export class KeyTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getStatsCategories();
+    this.getStatsCategories(() => {});
   }
 
   private splitCategoriesIntoGroupsOfThree(statsCategories: StatsCategory[]): void {
@@ -32,8 +32,11 @@ export class KeyTableComponent implements OnInit {
     });
   }
 
-  getStatsCategories(): void {
+  getStatsCategories(callback): void {
     this.statsService.getStatsCategories()
-      .subscribe(categories => this.splitCategoriesIntoGroupsOfThree(categories));
+      .then(categories => {
+        this.splitCategoriesIntoGroupsOfThree(categories);
+        callback();
+      });
   }
 }

@@ -19,6 +19,12 @@ describe('KeyTableComponent', () => {
     {Id: 6, Abbreviation: 'HIF', CategoryName: 'Hi, how are ya, I am fake'}
   ];
 
+  function createPromiseToResolveWith(data): any {
+    return new Promise(resolve => {
+      resolve(data);
+    });
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [KeyTableComponent],
@@ -37,7 +43,7 @@ describe('KeyTableComponent', () => {
 
     statsService = TestBed.get(StatsService);
 
-    spyOn(statsService, 'getStatsCategories').and.returnValue(of(fakeCategories));
+    spyOn(statsService, 'getStatsCategories').and.returnValue(createPromiseToResolveWith(fakeCategories));
   }));
 
   it('should create', () => {
@@ -71,13 +77,14 @@ describe('KeyTableComponent', () => {
   });
 
   describe('getStatsCategories', () => {
-    it('should use the stats service to get the categories', () => {
-      component.getStatsCategories();
-
-      expect(statsService.getStatsCategories).toHaveBeenCalled();
+    it('should use the stats service to get the categories', (done) => {
+      component.getStatsCategories(() => {
+        expect(statsService.getStatsCategories).toHaveBeenCalled();
+        done();
+      });
     });
 
-    it('should split the categories into groups of three', () => {
+    it('should split the categories into groups of three', (done) => {
       const expectedCategoriesInThrees = [
         [
           {Id: 1, Abbreviation: 'FC', CategoryName: 'Fake Category'},
@@ -91,9 +98,10 @@ describe('KeyTableComponent', () => {
         ]
       ];
 
-      component.getStatsCategories();
-
-      expect(JSON.stringify(component.statsCategoriesInThrees)).toEqual(JSON.stringify(expectedCategoriesInThrees));
+      component.getStatsCategories(() => {
+        expect(JSON.stringify(component.statsCategoriesInThrees)).toEqual(JSON.stringify(expectedCategoriesInThrees));
+        done();
+      });
     });
   });
 });

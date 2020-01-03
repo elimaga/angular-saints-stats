@@ -1,10 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
 
 import { StatsTableComponent } from './stats-table.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { StatsService } from '../stats.service';
-import { doesNotThrow } from 'assert';
 
 describe('StatsTableComponent', () => {
   let component: StatsTableComponent;
@@ -64,7 +62,7 @@ describe('StatsTableComponent', () => {
 
     statsService = TestBed.get(StatsService);
 
-    spyOn(statsService, 'getStatsCategories').and.returnValue(of(fakeCategories));
+    spyOn(statsService, 'getStatsCategories').and.returnValue(createPromiseToResolveWith(fakeCategories));
     spyOn(statsService, 'getStatistics').and.returnValue(createPromiseToResolveWith(fakeStatistics));
   }));
 
@@ -96,16 +94,19 @@ describe('StatsTableComponent', () => {
   });
 
   describe('getStatsCategories', () => {
-    it('should use the stats service to get the categories', () => {
-      component.getStatsCategories();
+    it('should use the stats service to get the categories', (done) => {
+      component.getStatsCategories(() => {
+        expect(statsService.getStatsCategories).toHaveBeenCalled();
+        done();
+      });
 
-      expect(statsService.getStatsCategories).toHaveBeenCalled();
     });
 
-    it('should set the stats categories of the component', () => {
-      component.getStatsCategories();
-
-      expect(component.statsCategories).toEqual(fakeCategories);
+    it('should set the stats categories of the component', (done) => {
+      component.getStatsCategories(() => {
+        expect(component.statsCategories).toEqual(fakeCategories);
+        done();
+      });
     });
   });
 

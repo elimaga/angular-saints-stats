@@ -13,8 +13,8 @@ export class StatsService {
 
   constructor(private http: HttpClient) { }
 
-  getStatsCategories(): Observable<StatsCategory[]> {
-    return this.http.get<StatsCategory[]>(this.statsCategoriesUrl);
+  getStatsCategories(): Promise<StatsCategory[]> {
+    return this.http.get<StatsCategory[]>(this.statsCategoriesUrl).toPromise();
   }
 
   getStatistics(): Promise<any[]> {
