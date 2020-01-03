@@ -17,7 +17,7 @@ export class StatsService {
     return this.http.get<StatsCategory[]>(this.statsCategoriesUrl);
   }
 
-  getStatistics(): Observable<any[]> {
-    return this.http.get<any[]>(this.statisticsUrl);
+  getStatistics(): Promise<any[]> {
+    return this.http.get<any[]>(this.statisticsUrl).toPromise();
   }
 }

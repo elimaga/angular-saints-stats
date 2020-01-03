@@ -17,7 +17,7 @@ export class StatsTableComponent implements OnInit {
 
   ngOnInit() {
     this.getStatsCategories();
-    this.getStatistics();
+    this.getStatistics(() => { });
   }
 
   getStatsCategories(): void {
@@ -25,8 +25,10 @@ export class StatsTableComponent implements OnInit {
       .subscribe(categories => this.statsCategories = categories);
   }
 
-  getStatistics(): void {
-    this.statsService.getStatistics()
-      .subscribe(statistics => this.statsForEachPlayer = statistics);
+  getStatistics(callback): void {
+    this.statsService.getStatistics().then(statistics => {
+      this.statsForEachPlayer = statistics;
+      callback();
+    });
   }
 }

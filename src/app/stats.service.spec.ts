@@ -65,21 +65,8 @@ describe('StatsService', () => {
   });
 
   describe('Statistics', () => {
-    let dataCallback;
-    let errorCallback;
-    let testObserver;
-
-    beforeEach(() => {
-      dataCallback = sinon.spy();
-      errorCallback = sinon.spy();
-      testObserver = {
-        next: dataCallback,
-        error: errorCallback
-      };
-    });
-
     it('should make an http request to get all of the statistics for all players', () => {
-      service.getStatistics().subscribe(testObserver);
+      service.getStatistics().then(() => {});
 
       const req = httpMock.expectOne(`https://pksh7vt4mh.execute-api.us-west-1.amazonaws.com/test/statistics`);
       expect(req.request.method).toBe('GET');

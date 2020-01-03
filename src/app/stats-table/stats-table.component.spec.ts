@@ -1,9 +1,10 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {of} from 'rxjs';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
-import {StatsTableComponent} from './stats-table.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {StatsService} from '../stats.service';
+import { StatsTableComponent } from './stats-table.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { StatsService } from '../stats.service';
+import { doesNotThrow } from 'assert';
 
 describe('StatsTableComponent', () => {
   let component: StatsTableComponent;
@@ -11,9 +12,9 @@ describe('StatsTableComponent', () => {
   let statsService: StatsService;
 
   const fakeCategories = [
-    {Id: 1, Abbreviation: 'CF', CategoryName: 'Category that is Fake'},
-    {Id: 2, Abbreviation: 'FC', CategoryName: 'Fake Category'},
-    {Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake Category'}
+    { Id: 1, Abbreviation: 'CF', CategoryName: 'Category that is Fake' },
+    { Id: 2, Abbreviation: 'FC', CategoryName: 'Fake Category' },
+    { Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake Category' }
   ];
   const fakeStatistics = [
     {
@@ -39,6 +40,12 @@ describe('StatsTableComponent', () => {
     }
   ];
 
+  function createPromiseToResolveWith(data): any {
+    return new Promise(resolve => {
+      resolve(data);
+    });
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [StatsTableComponent],
@@ -58,7 +65,7 @@ describe('StatsTableComponent', () => {
     statsService = TestBed.get(StatsService);
 
     spyOn(statsService, 'getStatsCategories').and.returnValue(of(fakeCategories));
-    spyOn(statsService, 'getStatistics').and.returnValue(of(fakeStatistics));
+    spyOn(statsService, 'getStatistics').and.returnValue(createPromiseToResolveWith(fakeStatistics));
   }));
 
   it('should create', () => {
@@ -103,16 +110,18 @@ describe('StatsTableComponent', () => {
   });
 
   describe('getStatistics', () => {
-    it('should use the stats service to get the statistics', () => {
-      component.getStatistics();
-
-      expect(statsService.getStatistics).toHaveBeenCalled();
+    it('should use the stats service to get the statistics', (done) => {
+      component.getStatistics(() => {
+        expect(statsService.getStatistics).toHaveBeenCalled();
+        done();
+      });
     });
 
-    it('should set the statistics of the component', () => {
-      component.getStatistics();
-
-      expect(component.statsForEachPlayer).toEqual(fakeStatistics);
+    it('should set the statistics of the component', (done) => {
+      component.getStatistics(() => {
+        expect(component.statsForEachPlayer).toEqual(fakeStatistics);
+        done();
+      });
     });
   });
 });
