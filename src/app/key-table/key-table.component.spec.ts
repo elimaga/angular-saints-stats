@@ -1,9 +1,9 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {of} from 'rxjs';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import {KeyTableComponent} from './key-table.component';
-import {StatsService} from '../stats.service';
+import { KeyTableComponent } from './key-table.component';
+import { StatsService } from '../stats.service';
 
 describe('KeyTableComponent', () => {
   let component: KeyTableComponent;
@@ -11,12 +11,12 @@ describe('KeyTableComponent', () => {
   let statsService: StatsService;
 
   const fakeCategories = [
-    {Id: 1, Abbreviation: 'FC', CategoryName: 'Fake Category'},
-    {Id: 2, Abbreviation: 'CF', CategoryName: 'Category that is Fake'},
-    {Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake'},
-    {Id: 4, Abbreviation: 'WFO', CategoryName: 'Whoa, another fake one'},
-    {Id: 5, Abbreviation: 'WTF', CategoryName: 'What the Fake'},
-    {Id: 6, Abbreviation: 'HIF', CategoryName: 'Hi, how are ya, I am fake'}
+    { Id: 1, Abbreviation: 'FC', CategoryName: 'Fake Category' },
+    { Id: 2, Abbreviation: 'CF', CategoryName: 'Category that is Fake' },
+    { Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake' },
+    { Id: 4, Abbreviation: 'WFO', CategoryName: 'Whoa, another fake one' },
+    { Id: 5, Abbreviation: 'WTF', CategoryName: 'What the Fake' },
+    { Id: 6, Abbreviation: 'HIF', CategoryName: 'Hi, how are ya, I am fake' }
   ];
 
   function createPromiseToResolveWith(data): any {
@@ -77,31 +77,29 @@ describe('KeyTableComponent', () => {
   });
 
   describe('getStatsCategories', () => {
-    it('should use the stats service to get the categories', (done) => {
-      component.getStatsCategories(() => {
-        expect(statsService.getStatsCategories).toHaveBeenCalled();
-        done();
-      });
+    it('should use the stats service to get the categories', async () => {
+      await component.getStatsCategories();
+
+      expect(statsService.getStatsCategories).toHaveBeenCalled();
     });
 
-    it('should split the categories into groups of three', (done) => {
+    it('should split the categories into groups of three', async () => {
       const expectedCategoriesInThrees = [
         [
-          {Id: 1, Abbreviation: 'FC', CategoryName: 'Fake Category'},
-          {Id: 2, Abbreviation: 'CF', CategoryName: 'Category that is Fake'},
-          {Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake'}
+          { Id: 1, Abbreviation: 'FC', CategoryName: 'Fake Category' },
+          { Id: 2, Abbreviation: 'CF', CategoryName: 'Category that is Fake' },
+          { Id: 3, Abbreviation: 'FY', CategoryName: 'Fakey Fake' }
         ],
         [
-          {Id: 4, Abbreviation: 'WFO', CategoryName: 'Whoa, another fake one'},
-          {Id: 5, Abbreviation: 'WTF', CategoryName: 'What the Fake'},
-          {Id: 6, Abbreviation: 'HIF', CategoryName: 'Hi, how are ya, I am fake'}
+          { Id: 4, Abbreviation: 'WFO', CategoryName: 'Whoa, another fake one' },
+          { Id: 5, Abbreviation: 'WTF', CategoryName: 'What the Fake' },
+          { Id: 6, Abbreviation: 'HIF', CategoryName: 'Hi, how are ya, I am fake' }
         ]
       ];
 
-      component.getStatsCategories(() => {
-        expect(JSON.stringify(component.statsCategoriesInThrees)).toEqual(JSON.stringify(expectedCategoriesInThrees));
-        done();
-      });
+      await component.getStatsCategories();
+
+      expect(JSON.stringify(component.statsCategoriesInThrees)).toEqual(JSON.stringify(expectedCategoriesInThrees));
     });
   });
 });

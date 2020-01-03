@@ -16,22 +16,15 @@ export class StatsTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getStatsCategories(() => {});
-    this.getStatistics(() => { });
+    this.getStatsCategories();
+    this.getStatistics();
   }
 
-  getStatsCategories(callback): void {
-    this.statsService.getStatsCategories()
-      .then(categories => {
-        this.statsCategories = categories;
-        callback();
-      });
+  async getStatsCategories() {
+    this.statsCategories = await this.statsService.getStatsCategories();
   }
 
-  getStatistics(callback): void {
-    this.statsService.getStatistics().then(statistics => {
-      this.statsForEachPlayer = statistics;
-      callback();
-    });
+  async getStatistics() {
+    this.statsForEachPlayer = await this.statsService.getStatistics();
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { StatsService } from '../stats.service';
 import { StatsCategory } from '../objectClasses/statsCategory';
@@ -17,7 +17,7 @@ export class KeyTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getStatsCategories(() => {});
+    this.getStatsCategories();
   }
 
   private splitCategoriesIntoGroupsOfThree(statsCategories: StatsCategory[]): void {
@@ -32,11 +32,8 @@ export class KeyTableComponent implements OnInit {
     });
   }
 
-  getStatsCategories(callback): void {
-    this.statsService.getStatsCategories()
-      .then(categories => {
-        this.splitCategoriesIntoGroupsOfThree(categories);
-        callback();
-      });
+  async getStatsCategories() {
+    const categories = await this.statsService.getStatsCategories();
+    this.splitCategoriesIntoGroupsOfThree(categories);
   }
 }

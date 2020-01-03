@@ -94,35 +94,30 @@ describe('StatsTableComponent', () => {
   });
 
   describe('getStatsCategories', () => {
-    it('should use the stats service to get the categories', (done) => {
-      component.getStatsCategories(() => {
-        expect(statsService.getStatsCategories).toHaveBeenCalled();
-        done();
-      });
+    it('should use the stats service to get the categories', async () => {
+      await component.getStatsCategories();
 
+      expect(statsService.getStatsCategories).toHaveBeenCalled();
     });
 
-    it('should set the stats categories of the component', (done) => {
-      component.getStatsCategories(() => {
-        expect(component.statsCategories).toEqual(fakeCategories);
-        done();
-      });
+    it('should set the stats categories of the component', async () => {
+      await component.getStatsCategories();
+
+      expect(component.statsCategories).toEqual(fakeCategories);
     });
   });
 
   describe('getStatistics', () => {
-    it('should use the stats service to get the statistics', (done) => {
-      component.getStatistics(() => {
-        expect(statsService.getStatistics).toHaveBeenCalled();
-        done();
-      });
+    it('should use the stats service to get the statistics', async () => {
+      await component.getStatistics();
+
+      expect(statsService.getStatistics).toHaveBeenCalled();
     });
 
-    it('should set the statistics of the component', (done) => {
-      component.getStatistics(() => {
-        expect(component.statsForEachPlayer).toEqual(fakeStatistics);
-        done();
-      });
+    it('should set the statistics of the component', async () => {
+      await component.getStatistics();
+
+      expect(component.statsForEachPlayer).toEqual(fakeStatistics);
     });
   });
 });
